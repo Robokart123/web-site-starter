@@ -12,7 +12,7 @@ export const Header = ({ className }: HeaderProps) => {
     return (
         <div className={classNames(styles.root, className)}>
             <a href="/" className={About_module.title}>
-                <CoduxSvg width="100px" height="100px" />
+                <CoduxSvg />
             </a>
             <div className={styles.menu}>
                 <NavLink
