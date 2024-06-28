@@ -16,8 +16,10 @@
 .title {
     font: $title-font;
     letter-spacing: 0.4rem;
+    width: 20%;
+    height: 100%;
+    max-width: none;
 }
-
 
 .paragraph {
     margin-bottom: 1.5em;
@@ -32,7 +34,6 @@
     flex-direction: column;
     row-gap: 1em;
 }
-
 
 .image {
     align-self: center;

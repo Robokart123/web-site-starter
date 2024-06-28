@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import styles from './header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
+import CoduxSvg from '../../assets/codux.svg';
+import About_module from '../about/about.module.scss';
 
 export interface HeaderProps {
     className?: string;
@@ -13,7 +15,9 @@ export interface HeaderProps {
 export const Header = ({ className }: HeaderProps) => {
     return (
         <div className={classNames(styles.root, className)}>
-            <a href="/">Logo</a>
+            <a href="/" className={About_module.title}>
+                <CoduxSvg />
+            </a>
             <div className={styles.menu}>
                 <NavLink
                     to="/"
