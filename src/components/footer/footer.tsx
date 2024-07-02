@@ -19,34 +19,30 @@ export const Footer = ({ className }: FooterProps) => {
     return (
         <div className={classNames(styles.root, className)}>
             <div className={styles.details}>
-                <div>Contact Jane Doe</div>
+                <div>Contact Us</div>
                 <div className={styles.small}>
-                    Mail: info@mysite.com
+                    robokart.com
                     <br />
-                    Tel: 123-456-7890
-                    <br />
-                    500 Terry Francine Street,
-                    <br />
-                    San Francisco, CA 94158
+                    Number
                 </div>
             </div>
             <div className={styles.social}>
-                <a href="/">
+                <a href="http://robokart.com">
                     <TwitterxIcon className={styles.icon} />
                 </a>
-                <a href="/">
+                <a href="http://robokart.com">
                     <FacebookIcon className={styles.icon} />
                 </a>
-                <a href="/">
+                <a href="http://robokart.com">
                     <DiscordIcon className={styles.icon} />
                 </a>
-                <a href="/">
+                <a href="http://robokart.com">
                     <YoutubeIcon className={styles.icon} />
                 </a>
-                <a href="/">
+                <a href="http://robokart.com">
                     <MediumIcon className={styles.icon} />
                 </a>
-                <a href="/">
+                <a href="http://robokart.com">
                     <GithubIcon className={styles.icon} />
                 </a>
             </div>

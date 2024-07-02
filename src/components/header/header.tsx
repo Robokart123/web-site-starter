@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import styles from './header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import CoduxSvg from '../../assets/codux.svg';
+import CoduxSvg from '../../assets/robokart_logo.svg';
 import About_module from '../about/about.module.scss';
 
 export interface HeaderProps {
@@ -12,7 +12,9 @@ export const Header = ({ className }: HeaderProps) => {
     return (
         <div className={classNames(styles.root, className)}>
             <a href="/" className={About_module.title}>
-                <div className={styles.svgContainer}>
+                <div className={styles.svgContainer}onClick={(e) => {
+      e.preventDefault();
+      window.location.href='http://robokart.com';}}>
                     <CoduxSvg />
                 </div>
             </a>
@@ -24,7 +26,7 @@ export const Header = ({ className }: HeaderProps) => {
                     Home
                 </NavLink>
                 <NavLink
-                    to="/about"
+                    to="/"
                     className={({ isActive }) => classNames({ [styles.active]: isActive })}
                 >
                     About

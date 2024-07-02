@@ -11,8 +11,12 @@
     font: $button-font;
 
     @media only screen and (max-width: $mobile-width) {
-        padding: 0 3em
+        padding: 0 3em;
     }
+    color: #ffffff;
+    background-color: rgb(255, 255, 255);
+    position: static;
+    box-shadow: -2.83px -2.83px 2px rgb(0, 0, 0);
 }
 
 .menu {
@@ -27,8 +31,8 @@
 }
 
 .svgContainer {
-    width: 100px; // Set the desired width
-    height: 100px; // Set the desired height
+    width: 100%; // Set the desired width
+    height: 100%; // Set the desired height
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,5 +41,5 @@
         width: 100%;
         height: 100%;
     }
+    flex-direction: row;
 }
-
