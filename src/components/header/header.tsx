@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import styles from './header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import CoduxSvg from '../../assets/robokart_logo.svg';
+import LogoSvg from '../../assets/robokart_logo.svg';
 import About_module from '../about/about.module.scss';
 
 export interface HeaderProps {
@@ -15,7 +15,7 @@ export const Header = ({ className }: HeaderProps) => {
                 <div className={styles.svgContainer}onClick={(e) => {
       e.preventDefault();
       window.location.href='http://robokart.com';}}>
-                    <CoduxSvg />
+                    <LogoSvg />
                 </div>
             </a>
             <div className={styles.menu}>
