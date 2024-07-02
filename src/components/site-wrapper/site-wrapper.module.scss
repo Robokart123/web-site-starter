@@ -9,4 +9,10 @@
 
 .content {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow: visible;
+    position: static;
 }

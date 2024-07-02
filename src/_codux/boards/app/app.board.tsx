@@ -9,9 +9,10 @@ export default createBoard({
             top: 0,
             left: 0,
             right: 0,
-            bottom: 128,
+            bottom: 0,
         },
-        windowWidth: 1280,
-        windowHeight: 720,
+        windowWidth: 2560,
+        windowHeight: 1273,
+        canvasBackgroundColor: 'rgba(255, 255, 255, 0)',
     },
 });

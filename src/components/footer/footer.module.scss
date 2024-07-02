@@ -9,12 +9,23 @@
     padding-top: 2em;
     padding-bottom: 1.2em;
     opacity: 1;
+    position: static;
+    text-align: justify;
+    margin-top: 170px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+    order: 1;
+    align-self: end;
+    flex-basis: 100%;
+    background-color: #ffffff;
 }
 
 .social {
     display: flex;
-    height: 30px;
+    height: 30%;
     column-gap: 0.8em;
+    flex-direction: row;
 }
 
 .small {
