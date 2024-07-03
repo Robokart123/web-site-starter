@@ -1,18 +1,20 @@
 import React from 'react';
-import { BrowserRouter, useRoutes } from 'react-router-dom';
-import { routes } from './routes';
+import ReactDOM from 'react-dom';
 
-const AppRoutes = () => {
-  const routing = useRoutes(routes);
-  return routing;
-};
+import styles from './App.module.scss';
+import { HomePage } from './components/home-page/home-page';
+import { Header } from './components/header/header';
+import { Footer } from './components/footer/footer';
+import { About } from './components/about/about';
 
 function App() {
   return (
-    <BrowserRouter basename="/WebAR/dist">
-      <AppRoutes />
-    </BrowserRouter>
+      <div className={styles.App}>
+          <HomePage />
+          <Header />
+          <Footer />
+          <About />
+      </div>
   );
 }
-
 export default App;
