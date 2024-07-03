@@ -66,6 +66,17 @@
     padding-left: 26px;
     padding-bottom: 12px;
     padding-top: 12px;
+    &:disabled {
+        pointer-events: none;
+        opacity: 1;
+        background-color: rgba(77, 77, 77, 0.8);
+        cursor: not-allowed;
+    }
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    &:active:disabled:hover {
+    }
 }
 
 .image {

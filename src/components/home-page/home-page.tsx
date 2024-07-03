@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './home-page.module.scss';
 import videoSrc from '../../assets/Demo_Video.mp4'; // Adjust the path as needed
@@ -7,22 +7,82 @@ export interface HomePageProps {
     className?: string;
 }
 
+const clamp = (num: number, min: number, max: number) => Math.min(Math.max(num, min), max);
+
 export const HomePage = ({ className }: HomePageProps) => {
     const videoRef = useRef<HTMLVideoElement>(null);
+    const animationRef = useRef<number | null>(null);
+    const [enabledButtons, setEnabledButtons] = useState<number[]>([1, 5]);
 
     useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible' && videoRef.current) {
+                videoRef.current.play().catch((error) => {
+                    console.error('Error attempting to play video:', error);
+                });
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
         if (videoRef.current) {
             videoRef.current.play().catch((error) => {
                 console.error('Error attempting to play video:', error);
             });
         }
+
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+        };
     }, []);
 
-    const handlePlayToPercentage = (percentage: number) => {
+    const handlePlayToPercentage = (percentage: number, index: number) => {
         if (videoRef.current) {
-            const duration = videoRef.current.duration;
-            videoRef.current.currentTime = duration * (percentage / 100);
-            videoRef.current.play();
+            const video = videoRef.current;
+            const targetTime = video.duration * (percentage / 100);
+            const currentTime = video.currentTime;
+            const timeDifference = targetTime - currentTime;
+
+            if (timeDifference < 0) {
+                video.currentTime = targetTime;
+                video.playbackRate = 1;
+                video.play();
+                return;
+            }
+
+            const transitionDuration = 5; // 5 seconds
+            let requiredRate = timeDifference / transitionDuration;
+
+            requiredRate = clamp(requiredRate, 0, 16);
+
+            video.playbackRate = requiredRate;
+
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+
+            const animate = () => {
+                if (Math.abs(video.currentTime - targetTime) < 0.1) {
+                    video.currentTime = targetTime;
+                    video.playbackRate = 1;
+                    video.play();
+                    setEnabledButtons((prev) => {
+                        if (index < 15 && !prev.includes(index + 5)) {
+                            return [...prev, index + 5];
+                        }
+                        return prev;
+                    });
+                    return;
+                }
+
+                animationRef.current = requestAnimationFrame(animate);
+            };
+
+            video.play();
+            animate();
         }
     };
 
@@ -38,31 +98,27 @@ export const HomePage = ({ className }: HomePageProps) => {
                     </div>
                 </div>
                 <div className={styles.buttons}>
-                    <button className={styles.button} onClick={() => handlePlayToPercentage(100)}>
-                        Go to 100%
-                    </button>
-                    <button className={styles.button} onClick={() => handlePlayToPercentage(75)}>
-                        Go to 75%
-                    </button>
-                    <button className={styles.button} onClick={() => handlePlayToPercentage(50)}>
-                        Go to 50%
-                    </button>
-                    <button className={styles.button} onClick={() => handlePlayToPercentage(25)}>
-                        Go to 25%
-                    </button>
+                    {[1, 5, 10, 15].map((percentage, index) => (
+                        <button
+                            key={index}
+                            className={classNames(styles.button, {
+                                [styles.disabled]: !enabledButtons.includes(percentage),
+                            })}
+                            onClick={() => handlePlayToPercentage(percentage, percentage)}
+                            disabled={!enabledButtons.includes(percentage)}
+                        >
+                            Go to {percentage}%
+                        </button>
+                    ))}
                 </div>
-                <video ref={videoRef} className={styles.video} src={videoSrc} autoPlay muted loop />
-                {/*
-                    <div className={styles.buttons} onClick={(e) => {
-      e.preventDefault();
-      window.location.href='http://google.com';}}>
-                    <img
-                        src="https://images.unsplash.com/photo-1622542796254-5b9c46ab0d2f?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dwixplosives.github.io/codux-assets-storage/add-panel/image-placeholder.jpg"
-                        alt=""
-                        className={styles.image}
-                    />
-                </div>
-                */}
+                <video
+                    ref={videoRef}
+                    className={classNames(styles.video, styles.backgroundVideo)}
+                    src={videoSrc}
+                    autoPlay
+                    muted
+                    loop
+                />
             </div>
         </div>
     );
