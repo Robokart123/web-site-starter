@@ -9,7 +9,7 @@ const AppRoutes = () => {
 
 function App() {
   return (
-    <BrowserRouter basename="/WebAR/dist">
+    <BrowserRouter basename="/WebAR/Home">
       <AppRoutes />
     </BrowserRouter>
   );
