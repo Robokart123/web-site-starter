@@ -1,11 +1,18 @@
-import { useMemo } from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { routes } from './routes';
 
-function App() {
-    const router = useMemo(() => createBrowserRouter(routes), []);
+const AppRoutes = () => {
+  const routing = useRoutes(routes);
+  return routing;
+};
 
-    return <RouterProvider router={router} />;
+function App() {
+  return (
+    <BrowserRouter basename="/WebAR/dist">
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
 export default App;
